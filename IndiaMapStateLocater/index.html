@@ -18,19 +18,35 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="bg-warning">
+    <header id="blur">
       <div
-        class="container-fluid px-3 py-2 text-center fw-bold display-6 text-black mb-3" id="headerr"
+        class="container-fluid px-3 py-2 d-flex justify-content-between align-items-center"
       >
-        India Map - State Locater
+        <div class="fw-bold display-6 text-black" id="headerr">
+          India Map - State Locater
+        </div>
+
+        <div class="d-flex gap-2" id="btn">
+          <button class="btn btn-success" onclick="addAllFlags()">
+            Add All
+          </button>
+          <button class="btn btn-danger" onclick="clearFlags()">Clear</button>
+          <button
+            class="btn btn-secondary"
+            id="soundToggle"
+            onclick="toggleSound()"
+          >
+            <i class="bi bi-volume-up-fill"></i>
+          </button>
+        </div>
       </div>
     </header>
 
-    <main>
-      <div class="d-flex gap-5 px-3" id="dropdown">
+    <main class="d-flex flex-column align-items-center">
+      <div class="d-flex px-3 justify-content-center" id="dropdown">
         <select
           id="search"
-          class="w-75 p-2 form-select d-inline-block"
+          class="w-75 p-2 form-select"
           aria-label="Select an Indian State"
           onchange="search()"
         >
@@ -66,23 +82,24 @@
           <option value="Uttarakhand">Uttarakhand</option>
           <option value="West Bengal">West Bengal</option>
         </select>
-        <button class="btn btn-danger px-3" id="btn" onclick="clearFlags()">Clear</button>
       </div>
 
-      <div
-        class="text-center mt-3"
-        id="indiaMap"
-        style="position: relative; display: inline-block"
-      >
-        <img
-          src="./Map[1].jpg"
-          alt=""
-          width="550px"
-          height="600px"
-          id="mapImg"
-        />
+      <div class="mt-3 d-flex justify-content-center">
+        <div id="mapContainer" class="position-relative">
+          <div id="indiaMap">
+            <img src="./Map[1].jpg" alt="India Map" id="mapImg" />
+          </div>
+
+          <div id="infoPanel" class="info-panel" style="display: none"></div>
+        </div>
       </div>
     </main>
+
+    <audio id="soundSearch" src="./button-09a.mp3"></audio>
+
+    <audio id="soundAddAll" src="./button-09a.mp3"></audio>
+
+    <audio id="soundClear" src="./button-10.mp3"></audio>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
