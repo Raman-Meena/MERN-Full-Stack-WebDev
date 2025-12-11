@@ -3,48 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Form</title>
+    <title>Document</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
     />
   </head>
   <body>
-    <header  class="container-fluid bg-primary p-2 mb-5">
-    <div class="text-center fw-bold fs-2">
-        Form Validation
+    <div class="bg-primary p-3 fs-4 text-center text-light fw-bold">
+      Form Validation
     </div>
-    </header>
 
-    <div class="container rounded bg-warning p-5 w-50 justify-content-center">
-      <div class="my-2">
-        <label for="name">Name : </label>
-        <input type="text" name="name" id="name" class="form-control" />
+    <div class="container p-4 d-grid gap-3 bg-warning mt-5 w-50 rounded">
+      <!-- Name Input -->
+      <div>
+        <div class="d-flex gap-2">
+          <label for="fullname" class="w-25">FullName : </label>
+          <input
+            type="text"
+            name="fullname"
+            id="fullname"
+            class="form-control"
+            autocomplete="no"
+          />
+        </div>
+        <span class="text-danger fs-6 float-end Error" id="NameError"></span>
       </div>
 
-      <div class="my-2">
-        <label for="email">Email : </label>
-        <input type="email" name="email" id="email" class="form-control" />
+      <!-- Email Input -->
+      <div>
+        <div class="d-flex gap-2">
+          <label for="email" class="w-25">Email : </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control"
+            autocomplete="no"
+          />
+        </div>
+        <span class="text-danger fs-6 float-end Error" id="EmailError"></span>
       </div>
 
-      <div class="my-2">
-        <label for="phone">Mobile No. : </label>
-        <input type="number" name="phone" id="phone" class="form-control" />
+      <div>
+        <div class="d-flex gap-2">
+          <label for="phone" class="w-25">Phone : </label>
+          <input
+            type="number"
+            name="phone"
+            id="phone"
+            class="form-control"
+            autocomplete="no"
+          />
+        </div>
+        <span class="text-danger fs-6 float-end Error" id="PhoneError"></span>
       </div>
 
-      <div class="my-2">
-        <label for="dob">DOB : </label>
-        <input type="date" name="dob" id="dob" class="form-control" />
+      <div>
+        <div class="d-flex gap-2">
+          <label for="dob" class="w-25">Date of Birth : </label>
+          <input
+            type="date"
+            name="dob"
+            id="dob"
+            class="form-control"
+            autocomplete="no"
+          />
+        </div>
+        <span class="text-danger fs-6 float-end Error" id="DOBError"></span>
       </div>
 
-      <button class="btn btn-primary form-control mt-3" onclick="submit()">Submit</button>
+      <button class="btn btn-primary" onclick="submit()">Submit</button>
     </div>
 
     <script
@@ -52,7 +87,6 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-
     <script src="script.js"></script>
   </body>
 </html>
