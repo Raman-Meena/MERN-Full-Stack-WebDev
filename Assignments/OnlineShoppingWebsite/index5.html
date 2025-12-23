@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Amazon Kart | Contact</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body style="background: linear-gradient(rgb(6, 110, 154), rgb(143, 187, 201));background-attachment: fixed;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Amazon Kart</a>
+        <div class="collapse navbar-collapse show">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link fw-bold text-light" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold text-light" href="index2.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold text-light" href="index3.html">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold text-light" href="index5.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <h2 class="fw-bolder text-white text-center mt-3">Contact Us</h2>
+
+    <section class="section text-center">
+      <div class="container bg-black p-4 w-25 rounded-4 shadow-lg">
+        <form id="contactForm" class="mx-auto" style="max-width: 500px">
+          <input
+            class="form-control mb-3"
+            id="cname"
+            placeholder="Name"
+            required
+          />
+          <input
+            class="form-control mb-3"
+            id="cemail"
+            type="email"
+            placeholder="Email"
+            required
+          />
+          <textarea
+            class="form-control mb-3"
+            id="message"
+            minlength="10"
+            placeholder="Message"
+            required
+          ></textarea>
+          <button class="btn btn-primary w-100">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.hero {
+  padding: 120px 20px;
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: white;
+}
+
+.section {
+  padding: 80px 20px;
+}
+
+.nav-link:hover {
+  color: #8f94fb !important;
+}
+
+.product-card {
+  transition: 0.3s;
+  background-color: bisque;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.about{
+    background: linear-gradient(to right, #eaa402, #e0d645);
+    p{
+        color: white;
+        font-weight: bold;
+    }
+}
