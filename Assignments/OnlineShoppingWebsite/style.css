@@ -18,7 +18,7 @@ body {
 
 .product-card {
   transition: 0.3s;
-  background-color: bisque;
+  background-color: rgb(216, 208, 198);
 }
 
 .product-card:hover {
@@ -27,7 +27,7 @@ body {
 }
 
 .btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
 }
 
 .about{
@@ -37,3 +37,5 @@ body {
         font-weight: bold;
     }
 }
+
+
