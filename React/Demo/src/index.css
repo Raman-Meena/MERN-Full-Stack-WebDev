@@ -1,0 +1,17 @@
+#head{
+  color: red;
+}
+
+body{
+  background:linear-gradient(-45deg, rgb(2, 133, 98), rgb(6, 211, 132), rgb(146, 230, 216));
+  background-attachment: fixed;
+}
+
+#hello{
+  margin-top: 220px;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bolder;
+  color: aliceblue;
+  text-shadow: 2px 2px grey;
+}

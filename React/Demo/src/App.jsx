@@ -1,0 +1,23 @@
+import React from "react";
+
+function App(){
+  let a = 5;
+  let b = 10;
+
+  console.log(a+b);
+
+  return (
+    <>
+    <h1 id="head">Hello World</h1>
+      <div>
+        This is my first React App
+      </div>
+
+      <div id="hello">
+        Hello React!!
+      </div>
+    </>
+  ); 
+}
+
+export default App;
