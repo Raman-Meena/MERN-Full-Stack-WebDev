@@ -11,6 +11,8 @@ const Header = () => {
         <div className="flex gap-5 items-center">
            <Link to={"/"} className="font-bold hover:text-white flex gap-1 items-center"><IoHomeSharp />Home</Link>
            <Link to={"/about"} className="font-bold hover:text-white flex gap-1 items-center"><IoIosInformationCircle />About</Link>
+           <Link to={"login"} className="font-bold hover:text-white flex gap-1 items-center">Login</Link>
+           <Link to={"/signup"} className="font-bold hover:text-white flex gap-1 items-center">Signup</Link>
         </div>
       </div>
     </>
