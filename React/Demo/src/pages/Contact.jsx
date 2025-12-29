@@ -2,31 +2,31 @@ import React from "react";
 import { useState } from "react";
 
 const Contact = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [contactData, setContactData] = useState({
+    fullName: "",
+    email: "",
+    message: "",
+  });
+
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setContactData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   const handleClear = () => {
-    setFullName("");
-    setEmail("");
-    setMessage("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-
-      const response = await fetch("https://official-joke-api.appspot.com/jokes/random");
-      setTimeout(() => {
-        const data = {
-          fullName,
-          email,
-          message,
-        };
-        console.log(data);
-      }, 5000);
+      const response = await fetch(
+        "https://official-joke-api.appspot.com/jokes/random"
+      );
+      console.log(contactData);
+      
     } catch (error) {
       console.log(error.meesage);
     } finally {
@@ -47,8 +47,8 @@ const Contact = () => {
               <input
                 type="text"
                 name="fullName"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                value={contactData.fullName}
+                onChange={handleChange}
                 placeholder="Enter Your Full Name"
                 required
               />
@@ -58,8 +58,8 @@ const Contact = () => {
               <input
                 type="text"
                 name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={contactData.email}
+                onChange={handleChange}
                 placeholder="Enter Your Email"
                 required
               />
@@ -68,8 +68,8 @@ const Contact = () => {
               <label htmlFor="message">Message</label>
               <textarea
                 name="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={contactData.message}
+                onChange={handleChange}
                 placeholder="Message"
                 required
               ></textarea>
