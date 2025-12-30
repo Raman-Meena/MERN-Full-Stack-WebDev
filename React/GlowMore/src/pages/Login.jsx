@@ -35,7 +35,7 @@ const Login = () => {
           <div className="text-2xl font-bold mb-10">
             <h1>User Login</h1>
           </div>
-          <div className="container border rounded bg-amber-200 border-black w-100 py-15">
+          <div className="container border rounded bg-amber-100 border-black w-100 py-15">
             <form onReset={handleClear} onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="userName" className="font-bold">
@@ -47,7 +47,7 @@ const Login = () => {
                   value={loginData.userName}
                   onChange={handleLogin}
                   placeholder="User Name"
-                  className="border ms-3 mb-2"
+                  className="border rounded ms-3 mb-2"
                 />
               </div>
 
@@ -61,7 +61,7 @@ const Login = () => {
                   value={loginData.password}
                   onChange={handleLogin}
                   placeholder="Password"
-                  className="border ms-3 mb-3"
+                  className="border rounded ms-3 mb-3"
                 />
               </div>
 
