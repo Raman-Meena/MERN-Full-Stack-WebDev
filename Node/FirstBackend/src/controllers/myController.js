@@ -35,9 +35,9 @@ export const UserLogin = async (req, res) => {
       return;
     }
 
-    const isVerified = password === existingUser.password;
+    // const isVerified = password === existingUser.password;
 
-    if (!isVerified) {
+    if (!password === existingUser.password) {
       res.status(402).json({ message: "User Not Authorized!" });
     }
 
