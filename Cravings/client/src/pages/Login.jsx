@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import api from '../config/Api'
+import api from "../config/Api";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -8,6 +8,7 @@ const Login = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [validationError, setValidationError] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,15 +16,37 @@ const Login = () => {
   };
 
   const handleClearForm = () => {
-    setFormData({
+    setLoginData({
       email: "",
       password: "",
     });
   };
 
+  const validate = () => {
+    let Error = {};
+
+    if (
+      !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
+        loginData.email
+      )
+    ) {
+      Error.email = "Use Proper Email Format";
+    }
+
+    setValidationError(Error);
+
+    return Object.keys(Error).length > 0 ? false : true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    if (!validate()) {
+      setIsLoading(false);
+      toast.error("Fill the Form Correctly");
+      return;
+    }
 
     try {
       const res = await api.post("/auth/login", loginData);
@@ -31,6 +54,7 @@ const Login = () => {
       handleClearForm();
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.message || "Unknown Error");
     } finally {
       setIsLoading(false);
     }
@@ -43,6 +67,9 @@ const Login = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">Login</h1>
+            <p className="text-lg text-gray-600">
+              You are 1 step away to fulfill your Cavings
+            </p>
           </div>
 
           {/* Form Container */}
@@ -56,30 +83,30 @@ const Login = () => {
               <div className="mb-10">
                 <div className="space-y-4">
                   <div className="flex">
-                    <span className="font-bold mt-4 mr-15">Email:</span>
+                    <span className="font-bold mt-4">Email:</span>
                     <input
                       type="email"
                       name="email"
-                      placeholder="Enter Your Email Address"
+                      placeholder="Enter Your Email"
                       value={loginData.email}
                       onChange={handleChange}
                       required
                       disabled={isLoading}
-                      className="w-full h-fit px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
+                      className="w-full h-fit px-4 py-3 border-2 border-gray-300 ms-10 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
                     />
                   </div>
                   <div className="flex">
-                    <span className="font-bold mt-4 mr-7">Password:</span>
+                    <span className="font-bold mt-4">Password:</span>
                     <input
-                    type="password"
-                    name="password"
-                    value={loginData.password}
-                    placeholder="Enter Your Password"
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
+                      type="password"
+                      name="password"
+                      value={loginData.password}
+                      placeholder="Enter Your Password"
+                      onChange={handleChange}
+                      required
+                      disabled={isLoading}
+                      className="w-full px-4 py-3 border-2 border-gray-300 ms-3 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
+                    />
                   </div>
                 </div>
               </div>
