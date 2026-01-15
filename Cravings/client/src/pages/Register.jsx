@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -72,7 +73,7 @@ const Register = () => {
       handleClearForm();
     } catch (error) {
       console.log(error);
-      toast.error(error?.response?.data?.message  || "Unknown Error");
+      toast.error(error?.response?.data?.message || "Unknown Error");
     } finally {
       setIsLoading(false);
     }
@@ -179,6 +180,12 @@ const Register = () => {
                 >
                   {isLoading ? "Submitting" : "Submit"}
                 </button>
+              </div>
+              <div className="text-center mt-3">
+                <span className="mr-2">Already have an account?</span>
+                <Link to={"/login"} className="text-blue-600 font-bold">
+                  Login
+                </Link>
               </div>
             </form>
           </div>

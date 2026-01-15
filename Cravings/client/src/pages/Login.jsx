@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -127,6 +128,12 @@ const Login = () => {
                 >
                   {isLoading ? "Logging in" : "Login"}
                 </button>
+              </div>
+              <div className="text-center mt-3">
+                <span className="mr-2">Don't have an account?</span>
+                <Link to={"/register"} className="text-blue-600 font-bold">
+                  Register
+                </Link>
               </div>
             </form>
           </div>
