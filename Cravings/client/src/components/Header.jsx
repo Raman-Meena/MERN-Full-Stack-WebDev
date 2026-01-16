@@ -19,19 +19,19 @@ const Header = () => {
         <div className="flex gap-4">
           <Link
             to={"/"}
-            className="text-decoration-none text-white hover:text-(--color-accent)"
+            className="text-decoration-none text-white hover:text-(--color-accent) font-bold"
           >
             Home
           </Link>
           <Link
             to={"/about"}
-            className="text-decoration-none text-white hover:text-(--color-accent)"
+            className="text-decoration-none text-white hover:text-(--color-accent) font-bold"
           >
             About
           </Link>
           <Link
             to={"/contact"}
-            className="text-decoration-none text-white hover:text-(--color-accent)"
+            className="text-decoration-none text-white hover:text-(--color-accent) font-bold"
           >
             Contact
           </Link>
