@@ -1,80 +1,90 @@
 import React from "react";
-import { FaStreetView } from "react-icons/fa";
+import { FaStreetView, FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import { FaShoppingCart } from "react-icons/fa";
 import { TbTransactionRupee } from "react-icons/tb";
 import { RiCustomerServiceFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-const UserSideBar = ({ active, setActive }) => {
+const UserSideBar = ({ active, setActive, sidebarOpen, setSidebarOpen }) => {
   return (
-    <>
-      <div className="p-3">
-        <div className="text-xl font-bold text-center flex gap-3 items-center">
-          <GiHamburgerMenu />
-          User Dashboard
-        </div>
-        <hr />
+    <div className="h-full flex flex-col">
+      <div className="flex items-center gap-3 p-4 font-bold text-lg overflow-hidden">
+        <GiHamburgerMenu
+          size={22}
+          className="cursor-pointer shrink-0 hover:scale-110"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        />
 
-        <div className="grid gap-3 p-6 font-bold">
-          <button
-            className={`flex gap-3 items-center cursor-pointer p-3 rounded-xl ${
-              active === "overview"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }`}
-            onClick={() => setActive("overview")}
-          >
-            <FaStreetView />
-            Overview
-          </button>
-          <button
-            className={`flex gap-3 items-center cursor-pointer p-3 rounded-xl ${
-              active === "profile"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }`}
-            onClick={() => setActive("profile")}
-          >
-            <CgProfile />
-            Profile
-          </button>
-          <button
-            className={`flex gap-3 items-center cursor-pointer p-3 rounded-xl ${
-              active === "orders"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }`}
-            onClick={() => setActive("orders")}
-          >
-            <FaShoppingCart />
-            Orders
-          </button>
-          <button
-            className={`flex gap-3 items-center cursor-pointer p-3 rounded-xl ${
-              active === "transactions"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }`}
-            onClick={() => setActive("transactions")}
-          >
-            <TbTransactionRupee />
-            Transactions
-          </button>
-          <button
-            className={`flex gap-3 items-center cursor-pointer p-3 rounded-xl ${
-              active === "helpdesk"
-                ? "bg-(--color-secondary) text-white"
-                : "hover:bg-gray-100/70"
-            }`}
-            onClick={() => setActive("helpdesk")}
-          >
-            <RiCustomerServiceFill />
-            Help Desk
-          </button>
-        </div>
+        <span
+          className={`whitespace-nowrap overflow-hidden transition-opacity duration-200 ${
+            sidebarOpen ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          User Dashboard
+        </span>
       </div>
-    </>
+
+      <hr />
+
+      <div className="flex flex-col gap-2 p-3 font-bold">
+        <SidebarItem
+          icon={<FaStreetView />}
+          label="Overview"
+          name="overview"
+          active={active}
+          sidebarOpen={sidebarOpen}
+          setActive={setActive}
+        />
+        <SidebarItem
+          icon={<CgProfile />}
+          label="Profile"
+          name="profile"
+          active={active}
+          sidebarOpen={sidebarOpen}
+          setActive={setActive}
+        />
+        <SidebarItem
+          icon={<FaShoppingCart />}
+          label="Orders"
+          name="orders"
+          active={active}
+          sidebarOpen={sidebarOpen}
+          setActive={setActive}
+        />
+        <SidebarItem
+          icon={<TbTransactionRupee />}
+          label="Transactions"
+          name="transactions"
+          active={active}
+          sidebarOpen={sidebarOpen}
+          setActive={setActive}
+        />
+        <SidebarItem
+          icon={<RiCustomerServiceFill />}
+          label="Help Desk"
+          name="helpdesk"
+          active={active}
+          sidebarOpen={sidebarOpen}
+          setActive={setActive}
+        />
+      </div>
+    </div>
+  );
+};
+
+const SidebarItem = ({ icon, label, name, active, sidebarOpen, setActive }) => {
+  return (
+    <button
+      onClick={() => setActive(name)}
+      className={`flex items-center gap-3 p-3 rounded-xl transition-all ${
+        active === name
+          ? "bg-(--color-secondary) text-white"
+          : "hover:bg-gray-100/70"
+      }`}
+    >
+      <span className="text-lg">{icon}</span>
+      {sidebarOpen && <span>{label}</span>}
+    </button>
   );
 };
 
