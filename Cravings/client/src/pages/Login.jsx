@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 const Login = () => {
+  const { setUser, setIsLogin } = useAuth();
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -30,7 +32,7 @@ const Login = () => {
 
     if (
       !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
-        loginData.email
+        loginData.email,
       )
     ) {
       Error.email = "Use Proper Email Format";
@@ -54,6 +56,9 @@ const Login = () => {
     try {
       const res = await api.post("/auth/login", loginData);
       toast.success(res.data.message);
+      setUser(res.data.data);
+      setIsLogin(true);
+      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
       handleClearForm();
       navigate("/user-dashboard");
     } catch (error) {
