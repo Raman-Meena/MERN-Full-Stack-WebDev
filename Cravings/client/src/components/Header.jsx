@@ -36,7 +36,7 @@ const Header = () => {
         </div>
         <div className="flex gap-4">
           {isLogin ? (
-            <span className="font-bold text-orange-600 text-xl">{user.fullName}</span>
+            <span className="font-bold text-orange-600 text-xl">Hello, {user.fullName}</span>
           ) : (
             <>
               <button
