@@ -2,7 +2,6 @@ import User from "../models/userModel.js";
 
 export const UserUpdate = async (req, res, next) => {
   try {
-    //logic here
 
     const { fullName, email, mobileNumber } = req.body;
     const currentUser = req.user;
@@ -13,8 +12,8 @@ export const UserUpdate = async (req, res, next) => {
       return next(error);
     }
 
-    console.log("OldData: ", currentUser); //old user data in JSON format
-    //first Way
+    console.log("OldData: ", currentUser);
+
     // currentUser.fullName = fullName;
     // currentUser.email = email;
     // currentUser.mobileNumber = mobileNumber;
@@ -22,7 +21,6 @@ export const UserUpdate = async (req, res, next) => {
 
     // console.log("NewData:", currentUser);
 
-    //Second Way
 
     const updatedUser = await User.findByIdAndUpdate(
       { _id: currentUser._id },
