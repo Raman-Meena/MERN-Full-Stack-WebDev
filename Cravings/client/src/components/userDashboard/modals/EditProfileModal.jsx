@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../../../context/authContext";
+import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
 
 const EditProfileModal = ({ onClose }) => {
@@ -12,89 +12,99 @@ const EditProfileModal = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("form Submitted");
+    console.log(formData);
+
+    try {
+      const res = await api.put("/user/update", formData);
+      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+      setUser(res.data.data);
+      setIsLogin(true);
+      // sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      onClose();
+    }
   };
 
-  try {
-    const res = api.put("/user/update", formData);
-    setUser(res.data.data);
-    setIsLogin(true);
-    //sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
-  } catch (error) {
-    console.log(error);
-  } finally {
-    onClose();
-  }
   return (
     <>
-      <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-        <div className="bg-white w-500px rounded shadow-lg">
-          {/* Header */}
-          <div className="flex justify-between px-5 py-3 border-b items-center">
-            <h2 className="text-lg font-semibold">Edit Profile</h2>
+      <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-100">
+        <div className="bg-white w-5xl max-h-[85vh] overflow-y-auto">
+          <div className="flex justify-between px-5 py-3 border-b border-gray-300 items-center">
+            <div>EditProfileModal</div>
             <button
-              onClick={onClose}
-              className="text-red-600 hover:text-red-800 text-xl"
+              onClick={() => onClose()}
+              className="text-red-600 hover:text-red-900 text-2xl"
             >
-              ✕
+              ⊗
             </button>
           </div>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="p-5 space-y-4">
-            {/* Name */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.fullName}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-
-            {/* Mobile */}
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Mobile Number
-              </label>
-              <input
-                type="tel"
-                name="mobile"
-                value={formData.mobileNumber}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-
-            {/* Email (Not Editable) */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <input
-                type="email"
-                value={formData.email}
-                disabled
-                className="w-full border rounded px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
-              />
-            </div>
-
-            {/* Buttons */}
-            <div className="flex justify-end gap-3 pt-4">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-4 py-2 border rounded hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                Save Changes
-              </button>
-            </div>
-          </form>
+          <div>
+            <form onSubmit={handleSubmit}>
+              <div className="p-6 space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, fullName: e.target.value })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 cursor-not-allowed "
+                    disabled
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Mobile Number
+                  </label>
+                  <input
+                    type="text"
+                    name="mobileNumber"
+                    value={formData.mobileNumber}
+                    onChange={(e) =>
+                      setFormData({ ...formData, mobileNumber: e.target.value })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                  />
+                </div>
+              </div>
+              <div className="px-6 py-6 flex justify-end space-x-4 border-t border-gray-300">
+                <button
+                  type="button"
+                  onClick={() => onClose()}
+                  className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </>
