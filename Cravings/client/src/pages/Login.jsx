@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { setUser, setIsLogin } = useAuth();
+  const { setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -60,6 +60,26 @@ const Login = () => {
       setIsLogin(true);
       sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
       handleClearForm();
+      switch (res.data.data.role) {
+        case "manager": {
+          setRole("manager");
+          navigate("/restaurant-dashboard")
+          break;
+        }
+        case "partner": {
+          setRole("partner");
+          navigate("/rider-dashboard")
+          break;
+        }
+        case "customer": {
+          setRole("customer");
+          navigate("/user-dashboard")
+          break;
+        }
+      
+        default:
+          break;
+      }
       navigate("/user-dashboard");
     } catch (error) {
       console.log(error);

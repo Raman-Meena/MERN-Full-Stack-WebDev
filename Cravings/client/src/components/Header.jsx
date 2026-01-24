@@ -1,12 +1,32 @@
 import React from "react";
 import CravingsLogo from "../assets/CravingsLogo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
   const { user, isLogin } = useAuth();
 
   const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    switch (role) {
+      case "manager": {
+        navigate("/restaurant-dashboard");
+        break;
+      }
+      case "partner": {
+        navigate("/rider-dashboard");
+        break;
+      }
+      case "customer": {
+        navigate("/user-dashboard");
+        break;
+      }
+
+      default:
+        break;
+    }
+  };
 
   return (
     <>

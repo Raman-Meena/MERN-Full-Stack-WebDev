@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,9 @@ const Register = () => {
     mobileNumber: "",
     password: "",
     confirmPassword: "",
+    role: "",
   });
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState({});
 
@@ -26,6 +28,7 @@ const Register = () => {
       mobileNumber: "",
       password: "",
       confirmPassword: "",
+      role: "",
     });
   };
 
@@ -42,7 +45,7 @@ const Register = () => {
 
     if (
       !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
-        formData.email
+        formData.email,
       )
     ) {
       Error.email = "Use Proper Email Format";
@@ -50,6 +53,10 @@ const Register = () => {
 
     if (!/^[6-9]\d{9}$/.test(formData.mobileNumber)) {
       Error.mobileNumber = "Only Indian Mobile Number allowed";
+    }
+
+    if (!formData.role) {
+      Error.role = "Please choose atleast one";
     }
 
     setValidationError(Error);
@@ -71,6 +78,7 @@ const Register = () => {
       const res = await api.post("/auth/register", formData);
       toast.success(res.data.message);
       handleClearForm();
+      navigate("/login");
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message || "Unknown Error");
@@ -103,6 +111,42 @@ const Register = () => {
               {/* Personal Information */}
               <div className="mb-10">
                 <div className="space-y-4">
+                  <div className="flex items-center justify-around">
+                    <label className="font-bold">I am-</label>
+                    <div className="flex items-center gap-2 font-bold">
+                      <input
+                        type="radio"
+                        name="role"
+                        id="manager"
+                        checked={formData.role === "manager"}
+                        value={"manager"}
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="manager">Manager</label>
+                    </div>
+                    <div className="flex items-center gap-2 font-bold">
+                      <input
+                        type="radio"
+                        name="role"
+                        id="partner"
+                        checked={formData.role === "partner"}
+                        value={"partner"}
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="partner">Delivery Partner</label>
+                    </div>
+                    <div className="flex items-center gap-2 font-bold">
+                      <input
+                        type="radio"
+                        name="role"
+                        id="customer"
+                        checked={formData.role === "customer"}
+                        value={"customer"}
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="customer">Customer</label>
+                    </div>
+                  </div>
                   <div>
                     <input
                       type="text"
