@@ -80,7 +80,6 @@ const Login = () => {
         default:
           break;
       }
-      navigate("/user-dashboard");
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message || "Unknown Error");

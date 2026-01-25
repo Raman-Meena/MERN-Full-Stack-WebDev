@@ -11,7 +11,7 @@ const Header = () => {
   const handleNavigate = () => {
     switch (role) {
       case "manager": {
-        navigate("/restaurant-dashboard");
+        navigate("/resturant-dashboard");
         break;
       }
       case "partner": {
@@ -22,7 +22,10 @@ const Header = () => {
         navigate("/user-dashboard");
         break;
       }
-
+      case "admin": {
+        navigate("/admin-dashboard");
+        break;
+      }
       default:
         break;
     }
@@ -58,7 +61,7 @@ const Header = () => {
           {isLogin ? (
             <div
               className="font-bold text-orange-600 text-xl cursor-pointer"
-              onClick={() => navigate("/user-dashboard")}
+              onClick={handleNavigate}
             >
               Hello, {user.fullName}
             </div>
