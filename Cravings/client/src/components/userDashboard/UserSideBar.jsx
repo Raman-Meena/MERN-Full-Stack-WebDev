@@ -4,8 +4,26 @@ import { CgProfile } from "react-icons/cg";
 import { TbTransactionRupee } from "react-icons/tb";
 import { RiCustomerServiceFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FiLogOut } from "react-icons/fi";
+import api from "../../config/Api";
+import toast from "react-hot-toast";
+import { useAuth } from "../../context/AuthContext";
 
 const UserSideBar = ({ active, setActive, sidebarOpen, setSidebarOpen }) => {
+  const { setUser, setIsLogin } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      const res = await api.get("/auth/logout");
+      toast.success(res.data.message);
+      setUser("");
+      setIsLogin(false);
+      sessionStorage.removeItem("CravingUser");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Unknown Error");
+    }
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center gap-3 p-4 font-bold text-lg overflow-hidden">
@@ -35,6 +53,7 @@ const UserSideBar = ({ active, setActive, sidebarOpen, setSidebarOpen }) => {
           sidebarOpen={sidebarOpen}
           setActive={setActive}
         />
+
         <SidebarItem
           icon={<CgProfile />}
           label="Profile"
@@ -43,6 +62,7 @@ const UserSideBar = ({ active, setActive, sidebarOpen, setSidebarOpen }) => {
           sidebarOpen={sidebarOpen}
           setActive={setActive}
         />
+
         <SidebarItem
           icon={<FaShoppingCart />}
           label="Orders"
@@ -51,6 +71,7 @@ const UserSideBar = ({ active, setActive, sidebarOpen, setSidebarOpen }) => {
           sidebarOpen={sidebarOpen}
           setActive={setActive}
         />
+
         <SidebarItem
           icon={<TbTransactionRupee />}
           label="Transactions"
@@ -59,6 +80,7 @@ const UserSideBar = ({ active, setActive, sidebarOpen, setSidebarOpen }) => {
           sidebarOpen={sidebarOpen}
           setActive={setActive}
         />
+
         <SidebarItem
           icon={<RiCustomerServiceFill />}
           label="Help Desk"
@@ -67,6 +89,18 @@ const UserSideBar = ({ active, setActive, sidebarOpen, setSidebarOpen }) => {
           sidebarOpen={sidebarOpen}
           setActive={setActive}
         />
+      </div>
+
+      <div className="mt-auto p-3">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 p-3 w-full rounded-xl font-bold text-red-600 hover:bg-red-50 transition-all"
+        >
+          <span className="text-lg">
+            <FiLogOut />
+          </span>
+          {sidebarOpen && <span>Logout</span>}
+        </button>
       </div>
     </div>
   );
