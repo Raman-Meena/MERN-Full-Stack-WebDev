@@ -1,19 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditProfileModal from "./modals/EditProfileModal";
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiCamera } from "react-icons/fi";
+import api from "../../config/Api";
+import toast from "react-hot-toast";
 
 const UserProfile = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [preview, setPreview] = useState("");
+
+  const fileInputRef = useRef(null);
 
   const firstLetter = user?.fullName?.charAt(0)?.toUpperCase() || "U";
-  const hasProfileImage = Boolean(user?.profileImage);
+
+  useEffect(() => {
+    if (!preview && user?.photo?.url) {
+      setPreview(user.photo.url);
+    }
+  }, [user, preview]);
+
+  const changePhoto = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const res = await api.patch("/user/changePhoto", formData);
+      toast.success(res.data.message);
+      setUser(res.data.user);
+      setPreview(res.data.user.photo.url);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Image upload failed");
+    }
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Only image files are allowed");
+      return;
+    }
+
+    const localPreview = URL.createObjectURL(file);
+    setPreview(localPreview);
+    changePhoto(file);
+  };
 
   return (
     <>
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-4xl mx-auto">
-        {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
           <button
@@ -25,13 +62,11 @@ const UserProfile = () => {
           </button>
         </div>
 
-        {/* Profile Content */}
         <div className="flex flex-col md:flex-row gap-8 items-center md:items-start border-t pt-8">
-          {/* Avatar */}
-          <div className="flex justify-center md:justify-start">
-            {hasProfileImage ? (
+          <div className="relative">
+            {preview ? (
               <img
-                src={user.profileImage}
+                src={preview}
                 alt="Profile"
                 className="w-36 h-36 rounded-full object-cover shadow-md border-4 border-amber-500"
               />
@@ -40,9 +75,24 @@ const UserProfile = () => {
                 {firstLetter}
               </div>
             )}
+
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="absolute bottom-1 right-3 bg-gray-900 text-white p-2 rounded-full shadow-lg hover:bg-amber-500 hover:scale-110 transition-all"
+            >
+              <FiCamera size={15} />
+            </button>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handlePhotoChange}
+            />
           </div>
 
-          {/* Details */}
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
             <ProfileField label="Full Name" value={user?.fullName} />
             <ProfileField label="Email" value={user?.email} />
@@ -51,7 +101,6 @@ const UserProfile = () => {
         </div>
       </div>
 
-      {/* Edit Profile Modal */}
       {isEditProfileModalOpen && (
         <EditProfileModal onClose={() => setIsEditProfileModalOpen(false)} />
       )}
