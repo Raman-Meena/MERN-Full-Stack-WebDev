@@ -7,9 +7,23 @@ const EditProfileModal = ({ onClose }) => {
   const { user, setUser, setIsLogin } = useAuth();
 
   const [formData, setFormData] = useState({
-    fullName: user?.fullName || "",
-    email: user?.email || "",
-    mobileNumber: user?.mobileNumber || "",
+    fullName: user.fullName,
+    email: user.email,
+    mobileNumber: user.mobileNumber,
+    gender: user.gender,
+    dob: user.dob,
+    address: user.address,
+    city: user.city,
+    pin: user.pin,
+    documents: {
+      uidai: user.documents.uidai,
+      pan: user.documents.pan,
+    },
+    paymentDetails: {
+      upi: user.paymentDetails.upi,
+      account_number: user.paymentDetails.account_number,
+      ifs_Code: user.paymentDetails.ifs_Code,
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -30,7 +44,6 @@ const EditProfileModal = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden">
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b">
           <h2 className="text-lg font-bold text-gray-800">Edit Profile</h2>
           <button
@@ -41,9 +54,7 @@ const EditProfileModal = ({ onClose }) => {
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
-          {/* Full Name */}
           <div>
             <label className="text-sm font-semibold text-gray-600">
               Full Name
@@ -63,7 +74,6 @@ const EditProfileModal = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Email (Read Only) */}
           <div>
             <label className="text-sm font-semibold text-gray-600">
               Email Address
@@ -79,7 +89,6 @@ const EditProfileModal = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Mobile Number */}
           <div>
             <label className="text-sm font-semibold text-gray-600">
               Mobile Number
@@ -98,7 +107,6 @@ const EditProfileModal = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Footer Buttons */}
           <div className="flex justify-end gap-4 pt-4 border-t">
             <button
               type="button"
