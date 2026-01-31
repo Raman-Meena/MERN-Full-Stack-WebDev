@@ -3,10 +3,13 @@ import toast from "react-hot-toast";
 import api from "../config/Api";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ForgetPasswordModal from "../components/publicModals/ForgetPasswordModal";
 
 const Login = () => {
   const { setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
+
+  const [isForgetPasswordModalOpen, setIsForgetPasswordModalOpen] = useState();
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -63,20 +66,20 @@ const Login = () => {
       switch (res.data.data.role) {
         case "manager": {
           setRole("manager");
-          navigate("/restaurant-dashboard")
+          navigate("/restaurant-dashboard");
           break;
         }
         case "partner": {
           setRole("partner");
-          navigate("/rider-dashboard")
+          navigate("/rider-dashboard");
           break;
         }
         case "customer": {
           setRole("customer");
-          navigate("/user-dashboard")
+          navigate("/user-dashboard");
           break;
         }
-      
+
         default:
           break;
       }
@@ -108,7 +111,7 @@ const Login = () => {
               className="p-8"
             >
               {/* Personal Information */}
-              <div className="mb-10">
+              <div className="mb-5">
                 <div className="space-y-4">
                   <div className="flex">
                     <span className="font-bold mt-4">Email:</span>
@@ -137,6 +140,7 @@ const Login = () => {
                     />
                   </div>
                 </div>
+                <div className="text-end mt-2">Forget password?</div>
               </div>
 
               {/* Submit Button */}
@@ -171,6 +175,12 @@ const Login = () => {
           </p>
         </div>
       </div>
+
+      {isForgetPasswordModalOpen && (
+        <ForgetPasswordModal
+          onClose={() => setIsForgetPasswordModalOpen(false)}
+        />
+      )}
     </>
   );
 };

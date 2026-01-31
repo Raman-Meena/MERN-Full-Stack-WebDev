@@ -91,3 +91,24 @@ export const UserLogout = async (req, res, next) => {
     next(error);
   }
 };
+
+export const UserGenOTP = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      const error = new Error("Email not registered");
+      error.statusCode = 402;
+      return next(error);
+    }
+
+    const otp = Math.floor(Math.random()*1000000).toString();
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(otp, salt);
+
+  } catch (error) {
+    return next(error);
+  }
+};
