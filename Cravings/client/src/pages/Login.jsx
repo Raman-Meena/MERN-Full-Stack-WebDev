@@ -9,7 +9,7 @@ const Login = () => {
   const { setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
 
-  const [isForgetPasswordModalOpen, setIsForgetPasswordModalOpen] = useState();
+  const [isForgetPasswordModalOpen, setIsForgetPasswordModalOpen] = useState(false);
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -140,7 +140,17 @@ const Login = () => {
                     />
                   </div>
                 </div>
-                <div className="text-end mt-2">Forget password?</div>
+                <div className="w-full flex justify-end mt-2">
+                  <button
+                    className="text-blue-500 hover:text-(--color-secondary) cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsForgetPasswordModalOpen(true);
+                    }}
+                  >
+                    Forget Password?
+                  </button>
+                </div>
               </div>
 
               {/* Submit Button */}
