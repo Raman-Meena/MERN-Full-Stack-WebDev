@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditRestaurantProfileModal from "./modals/EditRestaurantProfileModal";
 import { FaCamera, FaMapLocationDot, FaWallet } from "react-icons/fa6";
@@ -15,20 +15,12 @@ const RestaurantProfile = () => {
     useState(false);
   const [preview, setPreview] = useState("");
 
-  const firstLetter = user?.fullName?.charAt(0)?.toUpperCase() || "U";
-
-  useEffect(() => {
-    if (!preview && user?.photo?.url) {
-      setPreview(user.photo.url);
-    }
-  }, [user, preview]);
-
   const changePhoto = async (photo) => {
     const form_Data = new FormData();
     form_Data.append("image", photo);
 
     try {
-      const res = await api.patch("/user/changePhoto", form_Data);
+      const res = await api.patch("/restaurant/changePhoto", form_Data);
       toast.success(res.data.message);
       setUser(res.data.data);
       sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
@@ -72,19 +64,11 @@ const RestaurantProfile = () => {
             <div className="flex flex-col items-center">
               <div className="relative">
                 <div className="border-4 border-gray-300 rounded-full w-40 h-40 overflow-hidden bg-gray-100">
-                  {preview ? (
-                    <img
-                      src={preview}
-                      alt="Profile"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-4xl font-bold text-gray-400">
-                        {firstLetter}
-                      </span>
-                    </div>
-                  )}
+                  <img
+                    src={preview || user?.photo?.url || UserImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <label
                   htmlFor="imageUpload"
