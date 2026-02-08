@@ -60,7 +60,7 @@ const Header = () => {
         <div className="flex gap-4">
           {isLogin ? (
             <div
-              className="font-bold text-orange-600 text-xl cursor-pointer"
+              className="font-extrabold text-orange-500 text-xl cursor-pointer"
               onClick={handleNavigate}
             >
               Hello, {user.fullName}
