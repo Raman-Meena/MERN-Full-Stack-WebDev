@@ -37,6 +37,7 @@ const OrderNow = () => {
       <div className="bg-gray-100 p-3 h-screen">
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold text-gray-800">Order Now</h1>
+          
           <p className="text-gray-600 mt-2">
             Browse our menu and place your order now!
           </p>
