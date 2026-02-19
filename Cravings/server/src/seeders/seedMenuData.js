@@ -1,14 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "../config/db.js";
-import bcrypt from "bcrypt";
 import { DummyMenu } from "./dummy.js";
 import Menu from "../models/menuSchema.js";
 import User from "../models/userModel.js";
 
 const seedMenu = async () => {
+  let exitCode = 0;
   try {
-    connectDB();
+    await connectDB();
     //Delete Old Menu Data
     console.log("Deleting old Menu Data");
 
@@ -35,8 +35,9 @@ const seedMenu = async () => {
     console.log(error);
 
     console.error("Error Seeding Menu");
+    exitCode = 1;
   } finally {
-    process.exit(1);
+    process.exit(exitCode);
   }
 };
 

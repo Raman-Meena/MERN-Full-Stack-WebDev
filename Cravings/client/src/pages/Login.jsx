@@ -16,7 +16,6 @@ const Login = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [validationError, setValidationError] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,14 +33,12 @@ const Login = () => {
     let Error = {};
 
     if (
-      !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
+      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
         loginData.email,
       )
     ) {
       Error.email = "Use Proper Email Format";
     }
-
-    setValidationError(Error);
 
     return Object.keys(Error).length > 0 ? false : true;
   };

@@ -29,7 +29,7 @@ const CheckoutPage = () => {
       toast.error("Cart is empty or session expired");
       navigate("/order-now");
     }
-  }, []);
+  }, [user, cart, navigate]);
 
   const handleQuantityChange = (itemId, change) => {
     setCart((prev) => {

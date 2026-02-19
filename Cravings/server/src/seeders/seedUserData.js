@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "../config/db.js";
 import User from "../models/userModel.js";
-import bcrypt, { genSalt } from "bcrypt";
+import bcrypt from "bcrypt";
 import { DummyManagers, DummyPartners, DummyUsers } from "./dummy.js";
 
 const seedManager = async () => {
@@ -58,16 +58,12 @@ const seedRider = async () => {
 };
 
 const seedUser = async () => {
+  let exitCode = 0;
   try {
     await connectDB();
 
-    const existingUsers = await User.find();
-    if (existingUsers) {
-      existingUsers.forEach(async (existingUser) => {
-        if (existingUser.role !== "admin") {
-          await existingUser.deleteOne();
-        }
-      });
+    const deletedUsers = await User.deleteMany({ role: { $ne: "admin" } });
+    if (deletedUsers.acknowledged) {
       console.log("All Users Removed Except Admin");
     }
 
@@ -77,9 +73,10 @@ const seedUser = async () => {
   } catch (error) {
     console.log(error);
     console.log("Error in adding Dummy User");
+    exitCode = 1;
   }
 
-  process.exit(1);
+  process.exit(exitCode);
 };
 
 seedUser();

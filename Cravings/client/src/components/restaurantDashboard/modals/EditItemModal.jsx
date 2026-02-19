@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
 import toast from "react-hot-toast";
 
 const EditItemModal = ({ onClose, selectedItem }) => {
-  const { user } = useAuth();
   const [formData, setFormData] = useState({
     itemName: selectedItem?.itemName || "",
     description: selectedItem?.description || "",

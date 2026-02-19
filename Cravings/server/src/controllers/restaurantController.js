@@ -351,3 +351,21 @@ export const RestaurantResetPassword = async (req, res, next) => {
     next(error);
   }
 };
+
+export const GetAllPlacedOrder = async (req, res, next) => {
+  try {
+    const currentUser = req.user;
+
+    const allOrders = await Order.find({ restaurantId: currentUser._id })
+      .populate("userId")
+      .populate("riderId")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      message: "All Placed Orders Fetched Successfully",
+      data: allOrders,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

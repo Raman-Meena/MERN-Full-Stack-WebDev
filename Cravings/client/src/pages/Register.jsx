@@ -44,7 +44,7 @@ const Register = () => {
     }
 
     if (
-      !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
+      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
         formData.email,
       )
     ) {

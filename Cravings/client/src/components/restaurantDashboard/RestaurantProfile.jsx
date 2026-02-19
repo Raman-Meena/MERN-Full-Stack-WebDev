@@ -65,7 +65,7 @@ const RestaurantProfile = () => {
               <div className="relative">
                 <div className="border-4 border-gray-300 rounded-full w-40 h-40 overflow-hidden bg-gray-100">
                   <img
-                    src={preview || user?.photo?.url || UserImage}
+                    src={preview || user?.photo?.url}
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />

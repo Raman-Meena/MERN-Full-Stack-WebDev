@@ -45,7 +45,7 @@ export const GetAllRestaurants = async (req, res, next) => {
   }
 };
 
-export const GetRetaurantMenuData = async (req, res, next) => {
+export const GetRestaurantMenuData = async (req, res, next) => {
   try {
     const { id, page } = req.params;
     console.log(page);
@@ -60,9 +60,6 @@ export const GetRetaurantMenuData = async (req, res, next) => {
       resturantID: id,
     })
       .sort({ updatedAt: -1 })
-      .skip(1)
-      .limit(2)
-      .populate("resturantID");
 
     res
       .status(200)

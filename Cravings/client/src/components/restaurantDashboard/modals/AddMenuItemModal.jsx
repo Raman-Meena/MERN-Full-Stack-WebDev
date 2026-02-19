@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
 import toast from "react-hot-toast";
 
 const AddMenuItemModal = ({ onClose }) => {
-  const { user } = useAuth();
   const [formData, setFormData] = useState({
     itemName: "",
     description: "",

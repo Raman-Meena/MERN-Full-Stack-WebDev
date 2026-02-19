@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import { DummyAdmin } from "./dummy.js";
 
 const seedAdmin = async () => {
+  let exitCode = 0;
   try {
     await connectDB();
     const salt = await bcrypt.genSalt(10);
@@ -37,9 +38,10 @@ const seedAdmin = async () => {
     console.log(error);
 
     console.log("Error Seeding Admin");
+    exitCode = 1;
   }
 
-  process.exit(1);
+  process.exit(exitCode);
 };
 
 seedAdmin();

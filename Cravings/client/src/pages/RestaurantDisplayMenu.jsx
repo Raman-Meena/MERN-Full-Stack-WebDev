@@ -17,9 +17,15 @@ const RestaurantDisplayMenu = () => {
   const [cartFlag, setCartFlag] = useState([]);
 
   const fetchMenuItems = async () => {
+    if (!data?._id) {
+      toast.error("Restaurant details not found. Please select a restaurant again.");
+      navigate("/order-now");
+      return;
+    }
+
     setLoading(true);
     try {
-      const res = await api.get(`/public/restaurant/menu/${data._id}`);
+      const res = await api.get(`/public/restaurant-menu/${data._id}`);
       setMenuItems(res.data.data);
     } catch (error) {
       console.log(error);
@@ -78,7 +84,7 @@ const RestaurantDisplayMenu = () => {
     <>
       <div className="w-7xl p-3 rounded shadow mx-auto mt-2 ">
         <img
-          src={data.photo.url}
+          src={data?.photo?.url}
           alt=""
           className="w-48 h-48 object-cover rounded"
         />
@@ -97,7 +103,7 @@ const RestaurantDisplayMenu = () => {
               >
                 <div className="flex gap-4">
                   <img
-                    src={EachItem.images[0].url}
+                    src={EachItem.images?.[0]?.url || data?.photo?.url}
                     alt=""
                     className="w-40 h-40 object-cover rounded "
                   />

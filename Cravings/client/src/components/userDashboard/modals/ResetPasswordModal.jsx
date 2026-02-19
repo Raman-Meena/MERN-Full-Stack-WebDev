@@ -9,7 +9,7 @@ const ResetPasswordModal = ({ onClose }) => {
     newPassword: "",
     cfNewPassword: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors] = useState({});
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {

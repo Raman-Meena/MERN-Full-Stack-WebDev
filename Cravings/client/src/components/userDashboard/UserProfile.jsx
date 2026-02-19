@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditProfileModal from "./modals/EditProfileModal";
 import { FiEdit, FiCamera } from "react-icons/fi";
@@ -13,12 +13,6 @@ const UserProfile = () => {
   const fileInputRef = useRef(null);
 
   const firstLetter = user?.fullName?.charAt(0)?.toUpperCase() || "U";
-
-  useEffect(() => {
-    if (!preview && user?.photo?.url) {
-      setPreview(user.photo.url);
-    }
-  }, [user, preview]);
 
   const changePhoto = async (file) => {
     const formData = new FormData();
@@ -71,9 +65,19 @@ const UserProfile = () => {
                 className="w-36 h-36 rounded-full object-cover shadow-md border-4 border-amber-500"
               />
             ) : (
-              <div className="w-36 h-36 rounded-full bg-amber-400 flex items-center justify-center text-white text-5xl font-bold shadow-md border-4 border-amber-500">
-                {firstLetter}
-              </div>
+              <>
+                {user?.photo?.url ? (
+                  <img
+                    src={user.photo.url}
+                    alt="Profile"
+                    className="w-36 h-36 rounded-full object-cover shadow-md border-4 border-amber-500"
+                  />
+                ) : (
+                  <div className="w-36 h-36 rounded-full bg-amber-400 flex items-center justify-center text-white text-5xl font-bold shadow-md border-4 border-amber-500">
+                    {firstLetter}
+                  </div>
+                )}
+              </>
             )}
 
             <button

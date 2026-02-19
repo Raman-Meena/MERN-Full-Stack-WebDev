@@ -23,6 +23,7 @@ app.use("/restaurant", RestaurantRouter);
 
 app.get("/", (req, res) => {
   console.log("Server is Working");
+  res.status(200).json({ message: "Server is working" });
 });
 
 app.use((err, req, res, next) => {

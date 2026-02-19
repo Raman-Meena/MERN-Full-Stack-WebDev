@@ -8,11 +8,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
 import UserDashboard from "./pages/dashboards/UserDashboard";
+import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import RestaurantDashboard from "./pages/dashboards/RestaurantDashboard";
 import RiderDashboard from "./pages/dashboards/RiderDashboard";
 import OrderNow from "./pages/OrderNow";
 import RestaurantDisplayMenu from "./pages/RestaurantDisplayMenu";
 import NotFound from "./pages/NotFound";
+import CheckoutPage from "./pages/Checkout";
 
 const App = () => {
   return (
@@ -27,13 +29,13 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route
-            path="/restaurant-dashboard"
-            element={<RestaurantDashboard />}
-          />
+          <Route path="/restaurant-dashboard"element={<RestaurantDashboard />} />
           <Route path="/rider-dashboard" element={<RiderDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/order-now" element={<OrderNow />} />
-          <Route path="/restaurant/:id" element={<RestaurantDisplayMenu />} />
+          <Route path="/restaurantMenu" element={<RestaurantDisplayMenu />} />
+          <Route path="/checkout-page" element={<CheckoutPage />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

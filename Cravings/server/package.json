@@ -4,8 +4,8 @@
   "description": "This is Cravings Backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ondex.js"
+    "test": "echo \"No tests configured\"",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "Raman Meena",

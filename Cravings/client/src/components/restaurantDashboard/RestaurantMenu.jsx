@@ -27,8 +27,23 @@ const RestaurantMenu = () => {
   };
 
   useEffect(() => {
-    if (!isAddItemModalOpen && !isEditItemModalOpen) fetchMenuItem();
-  }, [isAddItemModalOpen, isEditItemModalOpen]);
+    const timer = setTimeout(() => {
+      fetchMenuItem();
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleCloseAddItemModal = () => {
+    setIsAddItemModalOpen(false);
+    fetchMenuItem();
+  };
+
+  const handleCloseEditItemModal = () => {
+    setIsEditItemModalOpen(false);
+    fetchMenuItem();
+  };
+
   return (
     <>
       <div className="bg-gray-50 rounded-lg p-6 h-full overflow-y-auto">
@@ -118,7 +133,7 @@ const RestaurantMenu = () => {
       </div>
 
       {isAddItemModalOpen && (
-        <AddMenuItemModal onClose={() => setIsAddItemModalOpen(false)} />
+        <AddMenuItemModal onClose={handleCloseAddItemModal} />
       )}
       {isViewItemModalOpen && (
         <ViewItemModal
@@ -128,7 +143,7 @@ const RestaurantMenu = () => {
       )}
       {isEditItemModalOpen && (
         <EditItemModal
-          onClose={() => setIsEditItemModalOpen(false)}
+          onClose={handleCloseEditItemModal}
           selectedItem={selectedItem}
         />
       )}

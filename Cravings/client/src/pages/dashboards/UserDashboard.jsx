@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import UserSideBar from "../../components/userDashboard/UserSideBar";
-import UserOverview from "../../components/userDashboard/userOverview";
-import UserProfile from "../../components/userDashboard/UserProfile"
+import UserOverview from "../../components/userDashboard/UserOverview";
+import UserProfile from "../../components/userDashboard/UserProfile";
 import UserOrders from "../../components/userDashboard/UserOrders";
 import UserTransactions from "../../components/userDashboard/UserTransactions";
 import UserHelpDesk from "../../components/userDashboard/UserHelpDesk";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
-
-
 
 const UserDashboard = () => {
   const { role, isLogin } = useAuth();
-  const ActiveTab = useLocation().state.tab;
+  const ActiveTab = useLocation().state?.tab;
   const [active, setActive] = useState(ActiveTab || "overview");
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,7 +19,7 @@ const UserDashboard = () => {
     if (!isLogin) {
       navigate("/login");
     }
-  });
+  }, [isLogin, navigate]);
 
   if (role !== "customer") {
     return (
