@@ -7,11 +7,14 @@ import UserTransactions from "../../components/userDashboard/UserTransactions";
 import UserHelpDesk from "../../components/userDashboard/UserHelpDesk";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 
 const UserDashboard = () => {
   const { role, isLogin } = useAuth();
-  const [active, setActive] = useState("overview");
+  const ActiveTab = useLocation().state.tab;
+  const [active, setActive] = useState(ActiveTab || "overview");
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
